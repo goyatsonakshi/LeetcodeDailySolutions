@@ -1,0 +1,56 @@
+// https://leetcode.com/problems/print-zero-even-odd/submissions/1345595978/
+Problem 1116  Print zero even odd, Level medium
+#include <semaphore.h>
+#include <functional> // Required for std::function
+
+class ZeroEvenOdd {
+private:
+    int n; // The maximum number we will count up to.
+    sem_t semZero, semEven, semOdd; // Semaphore for zero, even, and odd.
+
+public:
+    ZeroEvenOdd(int n) : n(n) {
+        sem_init(&semZero, 0, 1); // Initialize semZero so the first number printed is zero.
+        sem_init(&semEven, 0, 0); // Initialize semEven with no permits since we start with zero.
+        sem_init(&semOdd, 0, 0);  // Initialize semOdd with no permits since we start with zero.
+    }
+
+    // Outputs "0" and alternates between even and odd permissions.
+    void zero(std::function<void(int)> printNumber) {
+        for (int i = 0; i < n; ++i) {
+            sem_wait(&semZero); // Wait for the semaphore to be available.
+            printNumber(0);     // Print zero.
+            // Following zero, decide whether to allow even or odd number to print next.
+            if (i % 2 == 0) {
+                sem_post(&semOdd); // If the turn is even (starting at 0), allow odd to print next.
+            } else {
+                sem_post(&semEven); // If the turn is odd (1, 3, 5,...), allow even to print next.
+            }
+        }
+    }
+
+    // Only outputs the even numbers.
+    void even(std::function<void(int)> printNumber) {
+        for (int i = 2; i <= n; i += 2) {
+            sem_wait(&semEven); // Wait for the even semaphore to be available.
+            printNumber(i);     // Print the even number.
+            sem_post(&semZero); // Signal that zero should be printed next.
+        }
+    }
+
+    // Only outputs the odd numbers.
+    void odd(std::function<void(int)> printNumber) {
+        for (int i = 1; i <= n; i += 2) {
+            sem_wait(&semOdd);  // Wait for the odd semaphore to be available.
+            printNumber(i);     // Print the odd number.
+            sem_post(&semZero); // Signal that zero should be printed next.
+        }
+    }
+  
+    // Ensure proper destruction of semaphores to avoid any resource leak.
+    ~ZeroEvenOdd() {
+        sem_destroy(&semZero);
+        sem_destroy(&semEven);
+        sem_destroy(&semOdd);
+    }
+};
