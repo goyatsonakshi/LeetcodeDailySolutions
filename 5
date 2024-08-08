@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<vector<int>> spiralMatrixIII(int rows, int cols, int startRow, int startCol) {
+        int totalCells = rows * cols; // Total number of cells in the matrix
+        vector<vector<int>> result; // This will store the path of the spiral
+        result.push_back({startRow, startCol}); // Starting position
+      
+        // If there is only one cell in the matrix, return the result now
+        if (totalCells == 1) {
+            return result;
+        }
+      
+        // Spiral can be formed by increasing the steps in the east and north directions,
+        // and then increasing by an additional step when moving west and south.
+        for (int stepIncrease = 1; ; stepIncrease += 2) {
+            // Directions are East, South, West, North.
+            // The third value in each vector holds the number of steps to take in that direction.
+            vector<vector<int>> directions = {{0, 1, stepIncrease},   // Move right (East)
+                                              {1, 0, stepIncrease},   // Move down (South)
+                                              {0, -1, stepIncrease + 1}, // Move left (West)
+                                              {-1, 0, stepIncrease + 1}}; // Move up (North)
+          
+            // Go through each of the four directions
+            for (auto& dir : directions) {
+                // 'dir' is vector<int> that contains the row increment, column increment, and number of steps.
+                int rowIncrement = dir[0];
+                int colIncrement = dir[1];
+                int steps = dir[2];
+              
+                // Move the number of steps in the current direction
+                while (steps-- > 0) {
+                    // Update the starting position
+                    startRow += rowIncrement;
+                    startCol += colIncrement;
+                  
+                    // Check if the new position is within the matrix bounds
+                    if (startRow >= 0 && startRow < rows && startCol >= 0 && startCol < cols) {
+                        result.push_back({startRow, startCol}); // Add to result
+                        // If we've added all cells, return the result
+                        if (result.size() == totalCells) {
+                            return result;
+                        }
+                    }
+                }
+            }
+        }
+    }
+};
