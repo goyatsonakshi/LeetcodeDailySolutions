@@ -1,0 +1,48 @@
+719. Find the kth smaller element
+#include <vector>
+#include <algorithm>
+
+class Solution {
+public:
+    // This function computes the k-th smallest distance pair in a list of integers.
+    int smallestDistancePair(vector<int>& nums, int k) {
+        // First, the array is sorted to calculate distances between pairs efficiently.
+        sort(nums.begin(), nums.end());
+
+        // Initialize binary search bounds. The smallest distance can be zero,
+        // and the largest possible distance is between the smallest and largest element.
+        int left = 0;
+        int right = nums.back() - nums.front();
+
+        // Perform a binary search to find the k-th smallest distance.
+        while (left < right) {
+            int mid = (left + right) >> 1; // Equivalent to dividing by 2.
+
+            // If the count of distances less than or equal to mid is greater than or equal to k,
+            // we adjust the right bound.
+            if (countPairsWithDistance(nums, mid) >= k)
+                right = mid;
+            else // Otherwise, we adjust the left bound.
+                left = mid + 1;
+        }
+
+        // Once left meets right, we've found the smallest distance.
+        return left;
+    }
+
+private:
+    // Helper method to count the number of pairs with distance less than or equal to "dist".
+    int countPairsWithDistance(const vector<int>& nums, int dist) {
+        int count = 0;
+        for (int i = 0; i < nums.size(); ++i) {
+            // For each number, find the first number that is not more than "dist" away
+            // from the current number by using lower_bound.
+            int target = nums[i] - dist;
+            int j = lower_bound(nums.begin(), nums.end(), target) - nums.begin();
+
+            // Add the number of valid pairs found with this distance.
+            count += i - j;
+        }
+        return count;
+    }
+};
