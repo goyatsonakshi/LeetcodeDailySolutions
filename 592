@@ -1,5 +1,6 @@
 
-592class Solution {
+592
+class Solution {
  public:
   string fractionAddition(string expression) {
     istringstream iss(expression);
