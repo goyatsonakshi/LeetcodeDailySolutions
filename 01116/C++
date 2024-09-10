@@ -1,5 +1,4 @@
-// https://leetcode.com/problems/print-zero-even-odd/submissions/1345595978/
-Problem 1116  Print zero even odd, Level medium
+
 #include <semaphore.h>
 #include <functional> // Required for std::function
 
