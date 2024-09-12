@@ -1,4 +1,3 @@
-1514 leetcode
 class Solution {
  public:
   double maxProbability(int n, vector<vector<int>>& edges,
