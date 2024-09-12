@@ -1,4 +1,3 @@
-14 leetcode
 class Solution {
  public:
   string longestCommonPrefix(vector<string>& strs) {
