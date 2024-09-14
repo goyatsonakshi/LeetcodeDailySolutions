@@ -1,4 +1,3 @@
-1895 leetcode
 class Solution {
  public:
   int largestMagicSquare(vector<vector<int>>& grid) {
