@@ -1,4 +1,3 @@
-2699 leetcode
 class Solution {
  public:
   vector<vector<int>> modifiedGraphEdges(int n, vector<vector<int>>& edges,
