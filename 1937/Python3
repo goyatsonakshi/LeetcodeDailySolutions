@@ -1,4 +1,4 @@
-class Solution:
+class Solution: 
   def maxPoints(self, points: list[list[int]]) -> int:
     n = len(points[0])
     # dp[j] := the maximum number of points you can have if points[i][j] is the
