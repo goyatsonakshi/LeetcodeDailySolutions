@@ -1,4 +1,3 @@
-2807 leetcode
 class Solution {
  public:
   ListNode* insertGreatestCommonDivisors(ListNode* head) {
