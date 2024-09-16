@@ -1,13 +1,13 @@
-class Solution:
-  def convert(self, s: str, numRows: int) -> str:
-    rows = [''] * numRows
-    k = 0
-    direction = (numRows == 1) - 1
+class Solution {
+  public int uniquePaths(int m, int n) {
+    // dp[i][j] := the number of unique paths from (0, 0) to (i, j)
+    int[][] dp = new int[m][n];
+    Arrays.stream(dp).forEach(A -> Arrays.fill(A, 1));
 
-    for c in s:
-      rows[k] += c
-      if k == 0 or k == numRows - 1:
-        direction *= -1
-      k += direction
+    for (int i = 1; i < m; ++i)
+      for (int j = 1; j < n; ++j)
+        dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
 
-    return ''.join(rows)
+    return dp[m - 1][n - 1];
+  }
+}
