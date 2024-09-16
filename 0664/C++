@@ -1,4 +1,3 @@
-664 leetcode
 class Solution {
  public:
   int strangePrinter(string s) {
