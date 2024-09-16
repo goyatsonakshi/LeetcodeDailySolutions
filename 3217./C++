@@ -1,4 +1,3 @@
-3217 leetcode 
 class Solution {
  public:
   ListNode* modifiedList(vector<int>& nums, ListNode* head) {
