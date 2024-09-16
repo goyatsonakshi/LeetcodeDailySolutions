@@ -1,4 +1,3 @@
-949 Leetcode
 class Solution {
  public:
   string largestTimeFromDigits(vector<int>& arr) {
