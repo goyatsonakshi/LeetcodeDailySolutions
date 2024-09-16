@@ -1,20 +1,34 @@
+from typing import List  # Import necessary List type from the typing module for type annotation
+
 class Solution:
-  def combinationSum(self, candidates: list[int],
-                     target: int) -> list[list[int]]:
-    ans = []
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        # Helper function to perform depth-first search for combinations
+        def dfs(index: int, current_sum: int):
+            # Check if the current combination equals target sum
+            if current_sum == 0:
+                # If current sum is zero, we found a valid combination, add it to the answer list
+                combinations.append(combination_so_far[:])
+                return
+            if index >= len(candidates) or current_sum < candidates[index]:
+                # If we've reached the end of candidates array or current_sum
+                # is less than the candidate at the index, stop exploring this path
+                return
+            # Recurse without including the current candidate
+            dfs(index + 1, current_sum)
+            # Choose the current candidate
+            combination_so_far.append(candidates[index])
+            # Recurse including the current candidate
+            dfs(index, current_sum - candidates[index])
+            # Backtrack by removing the current candidate
+            combination_so_far.pop()
 
-    def dfs(s: int, target: int, path: list[int]) -> None:
-      if target < 0:
-        return
-      if target == 0:
-        ans.append(path.clone())
-        return
-
-      for i in range(s, len(candidates)):
-        path.append(candidates[i])
-        dfs(i, target - candidates[i], path)
-        path.pop()
-
-    candidates.sort()
-    dfs(0, target, [])
-    return ans
+        # Sort the candidates to help with early stopping in dfs
+        candidates.sort()
+        # This is a temporary list to hold the current combination
+        combination_so_far = []
+        # This is the list to hold all unique combinations that sum up to target
+        combinations = []
+        # Start the dfs from the first candidate with the summation equal to target
+        dfs(0, target)
+        # Return all unique combinations found
+        return combinations
