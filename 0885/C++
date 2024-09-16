@@ -1,4 +1,3 @@
-885 leetcode
 class Solution {
 public:
     vector<vector<int>> spiralMatrixIII(int rows, int cols, int startRow, int startCol) {
