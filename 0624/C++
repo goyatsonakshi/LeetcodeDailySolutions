@@ -1,4 +1,3 @@
-624 Maximum distance in arrays 
 class Solution {
 public:
     int maxDistance(vector<vector<int>>& arrays) {
