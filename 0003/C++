@@ -1,4 +1,3 @@
-3. leetcode solution
 class Solution {
  public:
   int lengthOfLongestSubstring(string s) {
