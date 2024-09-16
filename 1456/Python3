@@ -1,0 +1,23 @@
+class Solution:
+    def maxVowels(self, s: str, k: int) -> int:
+        # Define a set containing all vowels for easy access and checking
+        vowels = set('aeiou')
+
+        # Initial count of vowels in the first window of size k
+        current_vowel_count = sum(char in vowels for char in s[:k])
+
+        # Initialize maximum vowels found in a window
+        max_vowel_count = current_vowel_count
+
+        # Slide the window by one character from the kth element to the end
+        for i in range(k, len(s)):
+            # Increase count if the incoming character is a vowel
+            current_vowel_count += s[i] in vowels
+            # Decrease count since we are leaving the character at the start of the window
+            current_vowel_count -= s[i - k] in vowels
+
+            # Update maximum if the current window has more vowels than previous maximum
+            max_vowel_count = max(max_vowel_count, current_vowel_count)
+
+        # Return the maximum number of vowels found in any window of size k
+        return max_vowel_count
