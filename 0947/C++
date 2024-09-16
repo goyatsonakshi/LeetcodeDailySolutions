@@ -1,4 +1,3 @@
-947 leetcode
 class Solution {
  public:
   int removeStones(vector<vector<int>>& stones) {
