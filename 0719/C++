@@ -1,4 +1,3 @@
-719. Find the kth smaller element
 #include <vector>
 #include <algorithm>
 
