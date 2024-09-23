@@ -1,15 +1,24 @@
 class Solution {
-  public int pathSum(TreeNode root, int sum) {
-    if (root == null)
-      return 0;
-    return dfs(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
-  }
-
-  private int dfs(TreeNode root, int sum) {
-    if (root == null)
-      return 0;
-    return (sum == root.val ? 1 : 0) +   //
-        dfs(root.left, sum - root.val) + //
-        dfs(root.right, sum - root.val);
-  }
-}
+public:
+    int pathSum(TreeNode* root, int targetSum) {
+        unordered_map<long long, int> prefixSums;
+        prefixSums[0] = 1;  // Base case: a sum of 0 occurs once
+        return dfs(root, 0, targetSum, prefixSums);
+    }
+    
+    int dfs(TreeNode* node, long long currentSum, int targetSum, unordered_map<long long, int>& prefixSums) {
+        if (!node) return 0;
+        
+        currentSum += node->val;
+        int pathCount = prefixSums[currentSum - targetSum];
+        
+        prefixSums[currentSum]++;
+        
+        pathCount += dfs(node->left, currentSum, targetSum, prefixSums);
+        pathCount += dfs(node->right, currentSum, targetSum, prefixSums);
+        
+        prefixSums[currentSum]--;  // Remove the current node's contribution before backtracking
+        
+        return pathCount;
+    }
+};
