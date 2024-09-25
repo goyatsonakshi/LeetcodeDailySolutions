@@ -3,7 +3,6 @@ class TrieNode:
     self.children: dict[str, TrieNode] = {}
     self.count = 0
 
-
 class Solution:
   def sumPrefixScores(self, words: list[str]) -> list[int]:
     root = TrieNode()
