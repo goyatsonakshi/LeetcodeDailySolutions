@@ -1,13 +1,10 @@
-class Solution {
-  public int findKthLargest(int[] nums, int k) {
-    Queue<Integer> minHeap = new PriorityQueue<>();
+class Solution:
+  def findKthLargest(self, nums: list[int], k: int) -> int:
+    minHeap = []
 
-    for (final int num : nums) {
-      minHeap.offer(num);
-      while (minHeap.size() > k)
-        minHeap.poll();
-    }
+    for num in nums:
+      heapq.heappush(minHeap, num)
+      if len(minHeap) > k:
+        heapq.heappop(minHeap)
 
-    return minHeap.peek();
-  }
-}
+    return minHeap[0]
