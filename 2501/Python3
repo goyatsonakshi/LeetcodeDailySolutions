@@ -1,0 +1,15 @@
+class Solution:
+    def longestSquareStreak(self, nums):
+        nums.sort()
+        num_set = set(nums)
+        
+        max_streak = -1
+        for num in nums:
+            streak, current = 0, num
+            while current in num_set:
+                streak += 1
+                current *= current
+            if streak >= 2:
+                max_streak = max(max_streak, streak)
+        
+        return max_streak
